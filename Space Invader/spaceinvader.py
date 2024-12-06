@@ -9,7 +9,7 @@ from ranking import *
 # Configurações iniciais
 janela = Window(800, 600)  # Tamanho da janela
 janela.set_title("Menu Gráfico")
-background = GameImage("black_screen.jpg") 
+background = GameImage("black_screen.jpg")
 mouse = Mouse()
 teclado = Keyboard()
 
@@ -47,5 +47,3 @@ while True:
         elif area_sair[0] <= mouse.get_position()[0] <= area_sair[0] + area_sair[2] and \
                 area_sair[1] <= mouse.get_position()[1] <= area_sair[1] + area_sair[3]:
             janela.close()
-        
-        
