@@ -15,15 +15,15 @@ def lista_de_tiros(tiro, nave_pos, tiros_list):  # atualiza lista de tiros
 # atualiza a posição dos tiros e apaga os tiros fora da janela
 
 
-def soma_tiros(tiros_list, vel, janela):
-    if len(tiros_list) > 0 and tiros_list[0].y > janela.height:
+def soma_tiros(tiros_list, vel, dir, janela):
+    if len(tiros_list) > 0 and (tiros_list[0].y > janela.height or tiros_list[0].y < 0):
         tiros_list.pop(0)
     for i in range(len(tiros_list)):
-        tiros_list[i].y -= (0.5)
+        tiros_list[i].y -= (0.5)*dir
         tiros_list[i].draw()
 
 
-def colisao(tiros_list, monster_list):
+def colisao_monstro(tiros_list, monster_list):
     sinal_i = 0
     sinal_j = 0
     x = int()
@@ -47,3 +47,20 @@ def colisao(tiros_list, monster_list):
                     break
     if sinal:
         tiros_list.pop(x)
+
+
+def lista_de_tiros_monstros(tiro, monstros, tiros_list):  # atualiza lista de tiros
+    nova_lista = tiros_list
+    tiro_novo = GameImage("tiro_monstro.png")
+    tiro_novo.x = monstros.x+monstros.width/2
+    tiro_novo.y = monstros.y + monstros.height
+    nova_lista.append(tiro_novo)
+    return nova_lista
+
+def colisao_player(tiros_list, nave):
+    for i in range(len(tiros_list)):
+        if (nave.x+nave.width/2 > tiros_list[i].x > nave.x-nave.width/2 and\
+                nave.y+nave.height/2 > tiros_list[i].y > nave.y-nave.height/2):
+            tiros_list.pop(i)
+            return 1
+    return 0
